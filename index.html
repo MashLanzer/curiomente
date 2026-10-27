@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CurioMente 3D — YouTube</title>
+<style>
+  body { font-family: system-ui, sans-serif; background:#0f0f12; color:#fff; margin:0;
+         display:flex; min-height:100vh; align-items:center; justify-content:center; text-align:center; }
+  .box { padding:24px; max-width:420px; }
+  h1 { font-size:1.5rem; margin:.4em 0; }
+  p { color:#bbb; }
+  a.btn { display:inline-block; margin-top:14px; background:#ff0033; color:#fff; padding:14px 26px;
+          border-radius:12px; font-weight:700; text-decoration:none; font-size:1.05rem; }
+</style>
+<script>
+  var webURL = "https://www.youtube.com/@CurioMente3D?sub_confirmation=1";
+  var ua = navigator.userAgent || "";
+  var isAndroid = /Android/i.test(ua);
+  var isIOS = /iPhone|iPad|iPod/i.test(ua);
+  function goWeb(){ window.location.replace(webURL); }
+  if (isAndroid) {
+    // Intent directo a la app de YouTube; si no está, cae a la web con confirmación de suscripción
+    window.location.replace("intent://www.youtube.com/@CurioMente3D?sub_confirmation=1#Intent;scheme=https;package=com.google.android.youtube;S.browser_fallback_url=" + encodeURIComponent(webURL) + ";end");
+    setTimeout(goWeb, 2500);
+  } else if (isIOS) {
+    // Esquema de la app; si no abre, cae a la web
+    var t = setTimeout(goWeb, 1600);
+    window.addEventListener("pagehide", function(){ clearTimeout(t); });
+    document.addEventListener("visibilitychange", function(){ if (document.hidden) clearTimeout(t); });
+    window.location.replace("youtube://www.youtube.com/@CurioMente3D");
+  } else {
+    goWeb();
+  }
+</script>
+</head>
+<body>
+  <div class="box">
+    <div style="font-size:3rem">🌍</div>
+    <h1>CurioMente 3D</h1>
+    <p>Abriendo YouTube… Si no se abre solo, toca el botón:</p>
+    <a class="btn" href="https://www.youtube.com/@CurioMente3D?sub_confirmation=1">▶ Ver en YouTube y suscribirme</a>
+  </div>
+</body>
+</html>
